@@ -14,7 +14,11 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
+
+
+//mockup to insert data test
+const mockup = require('./app/Configuration/mockup')
 
 // simple route
 app.get("/", (req, res) => {
@@ -26,3 +30,4 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
