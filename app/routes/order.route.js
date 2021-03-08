@@ -1,22 +1,21 @@
 module.exports = app => {
-    const client = require('../controllers/client.controller')
+    const order = require('../controllers/order.controller')
 
     var router = require("express").Router();
 
-    // Create a new Client
+    // Create a new order
+    router.post('/order', order.create);
 
-    router.post('/client', client.create);
-
-    //Find all clients
-    router.get('/client', client.findAll);
+    //Find all orders
+    router.get('/order', order.findAll);
 
     // Find by ID
-    router.get("/client/:id", client.findOne);
+    router.get("/order/:id", order.findOne);
 
-    // Update a client
-    router.put("/client/:id", client.update);
+    // Update a order
+    router.put("/order/:id", order.update);
 
-    router.delete("/client/:id", client.delete);
+    router.delete("/order/:id", order.delete);
 
     app.use('/', router);
 

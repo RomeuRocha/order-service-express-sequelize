@@ -16,16 +16,16 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-
 //mockup to insert data test
 const mockup = require('./app/config/mockup')
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Wlcome to Rest Aplication" });
+  res.json({ message: "Welcome to Rest Aplication" });
 });
 
 require("./app/routes/client.route")(app);
+require('./app/routes/order.route')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

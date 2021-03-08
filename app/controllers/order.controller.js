@@ -38,9 +38,9 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
     const service = req.query.service;
-    var condition = service ? { service: { [Op.like]: `%${name}%` } } : null;
+    var condition = service ? { service: { [Op.like]: `%${service}%` } } : null;
 
-    Order.findAll({ where: condition })
+    Order.findAll({ where: condition, include: db.clients })
         .then(data => {
             res.send(data);
         })
@@ -57,7 +57,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Order.findByPk(id)
+    Order.findByPk(id,{include: db.clients })
         .then(data => {
             res.send(data);
         })

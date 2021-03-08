@@ -40,7 +40,7 @@ exports.findAll = (req, res) => {
     const name = req.query.name;
     var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
 
-    Client.findAll({ where: condition })
+    Client.findAll({ where: condition,include: db.orders })
         .then(data => {
             res.send(data);
         })
@@ -57,7 +57,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Client.findByPk(id)
+    Client.findByPk(id,{include: db.orders })
         .then(data => {
             res.send(data);
         })
