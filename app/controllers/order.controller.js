@@ -1,128 +1,128 @@
 const db = require('../models')
-const Client = db.clients
+const Order = db.orders
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Client
+// Create and Save a new Order
 exports.create = (req, res) => {
 
-    //validate value name
-    if (!req.body.name) {
+    //validate value service
+    if (!req.body.service) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
         return;
     }
 
-    // Create a Client
-    const client = {
-        name: req.body.name,
-        birthDate: req.body.birthDate
+    // Create a Order
+    const order = {
+        service: req.body.service,
+        value: req.body.value
     };
 
-    // Save client in the database
-    Client.create(client)
+    // Save Order in the database
+    Order.create(order)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Client."
+                    err.message || "Some error occurred while creating the Order."
             });
         });
 
 };
 
-// find all Clients from the database.
+// find all Orders from the database.
 
 
 exports.findAll = (req, res) => {
-    const name = req.query.name;
-    var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+    const service = req.query.service;
+    var condition = service ? { service: { [Op.like]: `%${name}%` } } : null;
 
-    Client.findAll({ where: condition })
+    Order.findAll({ where: condition })
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving Clients."
+                    err.message || "Some error occurred while retrieving Orders."
             });
         });
 };
 
 
-// Find a single Client with an id
+// Find a single Order with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Client.findByPk(id)
+    Order.findByPk(id)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Client with id=" + id
+                message: "Error retrieving Order with id=" + id
             });
         });
 };
 
-// Update a Client by the id in the request
+// Update a Order by the id in the request
 exports.update = (req, res) => {
 
     const id = req.params.id;
 
-    Client.update(req.body, {
+    Order.update(req.body, {
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Client was updated successfully."
+                    message: "Order was updated successfully."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Client with id=${id}. Maybe Client was not found or req.body is empty!`
+                    message: `Cannot update Order with id=${id}. Maybe Order was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating CLient with id=" + id + " Erro "+ err
+                message: "Error updating Order with id=" + id + " Erro " + err
             });
         });
 
 };
 
-// Delete a Client with the specified id in the request
+// Delete a Order with the specified id in the request
 exports.delete = (req, res) => {
 
     const id = req.params.id;
 
-    Client.destroy({
+    Order.destroy({
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Client was deleted successfully!"
+                    message: "Order was deleted successfully!"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Client with id=${id}. Maybe Task was not found!`
+                    message: `Cannot delete Order with id=${id}. Maybe Task was not found!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Client with id=" + id
+                message: "Could not delete Order with id=" + id
             });
         });
 
 };
 
-// Delete all Clients from the database.
+// Delete all Orders from the database.
 exports.deleteAll = (req, res) => {
 
 };
