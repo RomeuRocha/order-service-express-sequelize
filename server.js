@@ -18,12 +18,14 @@ app.use(express.urlencoded({ extended: true }));
 
 
 //mockup to insert data test
-const mockup = require('./app/Configuration/mockup')
+const mockup = require('./app/config/mockup')
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Rest application." });
+  res.json({ message: "Wlcome to Rest Aplication" });
 });
+
+require("./app/routes/client.route")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
