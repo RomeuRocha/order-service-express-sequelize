@@ -1,3 +1,4 @@
+
 const db = require("../models");
 
 (async () => {
@@ -13,5 +14,19 @@ const db = require("../models");
     ).catch((err) => {
       console.log(">> Error while creating Client: ", err);
     });
+
+    const order1 = await db.orders.create({
+      service: "Manutenção em notebook",
+      value: parseFloat('100.00'),
+      clientId: romeu.id
+    }).then(
+      console.log("sucesso!")
+    ).catch((err) => {
+      console.log(">> Error while creating order: ", err);
+    });
+
+
+
+
   })();
 
