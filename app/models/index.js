@@ -21,6 +21,11 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.DataTypes = DataTypes
 
+
 db.clients = require("./client.model.js")(sequelize, DataTypes);
+db.orders = require("./order.model")(sequelize, DataTypes);
+
+db.clients.hasMany(db.orders)
+db.orders.belongsTo(db.clients)
 
 module.exports = db;
