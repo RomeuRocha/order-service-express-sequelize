@@ -25,6 +25,25 @@ const db = require("../models");
       console.log(">> Error while creating order: ", err);
     });
 
+    const s1 = await db.services.create({
+      description: "Manutenção em notebook",
+      value: parseFloat('100.00'),
+    }).then(
+      console.log("sucesso!")
+    ).catch((err) => {
+      console.log(">> Error while creating service: ", err);
+    });
+
+    const itemservice1 = await db.itemServices.create({ 
+      value: parseFloat('100.00'),
+      serviceId: s1.id,
+      orderId: order1.id
+    }).then(
+      console.log("sucesso!")
+    ).catch((err) => {
+      console.log(">> Error while creating itemService: ", err);
+    });
+
 
 
 

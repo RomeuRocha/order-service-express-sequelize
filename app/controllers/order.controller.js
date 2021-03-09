@@ -6,7 +6,7 @@ const Op = db.Sequelize.Op;
 exports.create = (req, res) => {
 
     //validate value service
-    if (!req.body.service) {
+    if (!req.body.clientId) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -15,7 +15,7 @@ exports.create = (req, res) => {
 
     // Create a Order
     const order = {
-        service: req.body.service,
+        clientId: req.body.clientId,
         value: req.body.value
     };
 
@@ -40,7 +40,30 @@ exports.findAll = (req, res) => {
     const service = req.query.service;
     var condition = service ? { service: { [Op.like]: `%${service}%` } } : null;
 
-    Order.findAll({ where: condition, include: db.clients })
+    Order.findAll(
+        {
+            attributes: { exclude: ['createdAt', 'updatedAt', 'clientId'] },
+            where: condition,
+            include: [
+                {
+                    model: db.clients,
+                    required: true,
+                    attributes: ['id', 'name']
+                },
+                {
+                    model: db.itemServices,
+                    attributes: ['id', 'value'],
+                    include: [
+                        { 
+                            model: db.services,
+                            attributes: ['description'],
+                            required: true
+                        }
+                    ]
+                    
+                }
+            ]
+        })
         .then(data => {
             res.send(data);
         })
@@ -57,7 +80,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Order.findByPk(id,{include: db.clients })
+    Order.findByPk(id, { include: db.clients })
         .then(data => {
             res.send(data);
         })

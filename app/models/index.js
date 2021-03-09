@@ -24,8 +24,20 @@ db.DataTypes = DataTypes
 
 db.clients = require("./client.model.js")(sequelize, DataTypes);
 db.orders = require("./order.model")(sequelize, DataTypes);
+db.services = require('./service.model')(sequelize, DataTypes);
+db.itemServices = require('./itemService.model')(sequelize, DataTypes);
 
+//relations client for order (1:n)
 db.clients.hasMany(db.orders)
 db.orders.belongsTo(db.clients)
+
+//relation order for service (n : n)
+db.services.hasMany(db.itemServices)
+db.itemServices.belongsTo(db.services)
+
+db.orders.hasMany(db.itemServices)
+db.itemServices.belongsTo(db.orders)
+
+
 
 module.exports = db;
