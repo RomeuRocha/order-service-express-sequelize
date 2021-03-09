@@ -47,20 +47,20 @@ exports.findAll = (req, res) => {
             include: [
                 {
                     model: db.clients,
-                    required: true,
+                    required: true, 
                     attributes: ['id', 'name']
                 },
                 {
                     model: db.itemServices,
                     attributes: ['id', 'value'],
                     include: [
-                        { 
+                        {
                             model: db.services,
                             attributes: ['description'],
                             required: true
                         }
                     ]
-                    
+
                 }
             ]
         })

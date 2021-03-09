@@ -26,6 +26,8 @@ db.clients = require("./client.model.js")(sequelize, DataTypes);
 db.orders = require("./order.model")(sequelize, DataTypes);
 db.services = require('./service.model')(sequelize, DataTypes);
 db.itemServices = require('./itemService.model')(sequelize, DataTypes);
+db.products = require('./product.model')(sequelize, DataTypes);
+db.itemProducts = require('./itemProduct.model')(sequelize, DataTypes);
 
 //relations client for order (1:n)
 db.clients.hasMany(db.orders)
@@ -37,6 +39,14 @@ db.itemServices.belongsTo(db.services)
 
 db.orders.hasMany(db.itemServices)
 db.itemServices.belongsTo(db.orders)
+
+//relation order for product (n:n)
+db.products.hasMany(db.itemProducts)
+db.itemProducts.belongsTo(db.products)
+
+db.orders.hasMany(db.itemProducts)
+db.itemProducts.belongsTo(db.orders)
+
 
 
 

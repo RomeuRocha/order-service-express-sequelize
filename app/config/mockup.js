@@ -16,15 +16,14 @@ const db = require("../models");
     });
 
     const order1 = await db.orders.create({
-      service: "Manutenção em notebook",
       value: parseFloat('100.00'),
-      clientId: romeu.id
+      clientId: romeu.id,
     }).then(
       console.log("sucesso!")
     ).catch((err) => {
       console.log(">> Error while creating order: ", err);
     });
-
+    
     const s1 = await db.services.create({
       description: "Manutenção em notebook",
       value: parseFloat('100.00'),
@@ -44,7 +43,27 @@ const db = require("../models");
       console.log(">> Error while creating itemService: ", err);
     });
 
+    const prod1 = await db.products.create({
+      name: "Memória Ram DDR - 4GB ",
+      value: parseFloat('300.00'),
+    }).then(
+      console.log("sucesso!")
+    ).catch((err) => {
+      console.log(">> Error while creating product: ", err);
+    });
 
+    const itemProduct1 = await db.itemProducts.create({ 
+      value: parseFloat('300.00'),
+      productId: prod1.id,
+      quantity:1,
+      orderId: order1.id
+    }).then(
+      console.log("sucesso!")
+    ).catch((err) => {
+      console.log(">> Error while creating itemProduct: ", err);
+    });
+
+    
 
 
   })();
