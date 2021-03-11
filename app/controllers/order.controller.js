@@ -47,7 +47,7 @@ exports.findAll = (req, res) => {
             include: [
                 {
                     model: db.clients,
-                    required: true, 
+                    required: true,
                     attributes: ['id', 'name']
                 },
                 {
@@ -80,7 +80,29 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Order.findByPk(id, { include: db.clients })
+    Order.findByPk(id, {
+        attributes: { exclude: ['createdAt', 'updatedAt', 'clientId'] },
+
+        include: [
+            {
+                model: db.clients,
+                required: true,
+                attributes: ['id', 'name']
+            },
+            {
+                model: db.itemServices,
+                attributes: ['id', 'value'],
+                include: [
+                    {
+                        model: db.services,
+                        attributes: ['description'],
+                        required: true
+                    }
+                ]
+
+            }
+        ]
+    })
         .then(data => {
             res.send(data);
         })

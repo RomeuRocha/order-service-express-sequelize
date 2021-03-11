@@ -22,12 +22,12 @@ db.sequelize = sequelize;
 db.DataTypes = DataTypes
 
 
-db.clients = require("./client.model.js")(sequelize, DataTypes);
-db.orders = require("./order.model")(sequelize, DataTypes);
-db.services = require('./service.model')(sequelize, DataTypes);
-db.itemServices = require('./itemService.model')(sequelize, DataTypes);
-db.products = require('./product.model')(sequelize, DataTypes);
-db.itemProducts = require('./itemProduct.model')(sequelize, DataTypes);
+db.clients = require("./entities/client.model.js")(sequelize, DataTypes);
+db.orders = require("./entities/order.model")(sequelize, DataTypes);
+db.services = require('./entities/service.model')(sequelize, DataTypes);
+db.itemServices = require('./entities/itemService.model')(sequelize, DataTypes);
+db.products = require('./entities/product.model')(sequelize, DataTypes);
+db.itemProducts = require('./entities/itemProduct.model')(sequelize, DataTypes);
 
 //relations client for order (1:n)
 db.clients.hasMany(db.orders)
@@ -46,8 +46,6 @@ db.itemProducts.belongsTo(db.products)
 
 db.orders.hasMany(db.itemProducts)
 db.itemProducts.belongsTo(db.orders)
-
-
 
 
 module.exports = db;
