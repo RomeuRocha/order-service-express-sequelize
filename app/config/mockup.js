@@ -16,7 +16,7 @@ const db = require("../models");
     });
 
     const order1 = await db.orders.create({
-      value: parseFloat('100.00'),
+      value: parseFloat('400.00'),
       clientId: romeu.id,
     }).then(
       console.log("sucesso!")

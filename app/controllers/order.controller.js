@@ -61,6 +61,18 @@ exports.findAll = (req, res) => {
                         }
                     ]
 
+                },
+                {
+                    model: db.itemProducts,
+                    attributes: ['id', 'value'],
+                    include: [
+                        {
+                            model: db.products,
+                            attributes: ['name'],
+                            required: true
+                        }
+                    ]
+
                 }
             ]
         })
@@ -96,6 +108,18 @@ exports.findOne = (req, res) => {
                     {
                         model: db.services,
                         attributes: ['description'],
+                        required: true
+                    }
+                ]
+
+            },
+            {
+                model: db.itemProducts,
+                attributes: ['id', 'value'],
+                include: [
+                    {
+                        model: db.products,
+                        attributes: ['name'],
                         required: true
                     }
                 ]
