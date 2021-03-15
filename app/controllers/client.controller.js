@@ -41,7 +41,7 @@ exports.findAll = (req, res) => {
     var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
 
     Client.findAll({ where: condition,include: db.orders })
-        .then(data => {
+        .then(data => {    
             res.send(data);
         })
         .catch(err => {

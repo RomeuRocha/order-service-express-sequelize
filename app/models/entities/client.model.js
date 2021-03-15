@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       birthDate: {
         type: DataTypes.DATE
-      }
-      
+      },
+
     });
   
     return Client;
