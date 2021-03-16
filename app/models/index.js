@@ -28,8 +28,8 @@ db.services = require('./entities/service.model')(sequelize, DataTypes);
 db.itemServices = require('./entities/itemService.model')(sequelize, DataTypes);
 db.products = require('./entities/product.model')(sequelize, DataTypes);
 db.itemProducts = require('./entities/itemProduct.model')(sequelize, DataTypes);
-
 db.devices = require('./entities/device.model')(sequelize, DataTypes);
+db.equipments = require('./entities/equipment.model')(sequelize, DataTypes);
 
 //relations client for order (1:n)
 db.clients.hasMany(db.orders)
@@ -49,5 +49,12 @@ db.itemProducts.belongsTo(db.products)
 db.orders.hasMany(db.itemProducts)
 db.itemProducts.belongsTo(db.orders)
 
+//relations order for equipment
+db.equipments.hasOne(db.orders)
+db.orders.belongsTo(db.equipments)
+
+//relations device for equipment
+db.devices.hasOne(db.equipments)
+db.equipments.belongsTo(db.devices)
 
 module.exports = db;

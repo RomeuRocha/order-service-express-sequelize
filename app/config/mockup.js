@@ -15,32 +15,13 @@ const db = require("../models");
     console.log(">> Error while creating Client: ", err);
   });
 
-  const order1 = await db.orders.create({
-    value: parseFloat('400.00'),
-    clientId: romeu.id,
-  }).then(
-    console.log("sucesso!")
-  ).catch((err) => {
-    console.log(">> Error while creating order: ", err);
-  });
-
   const s1 = await db.services.create({
-    description: "Manutenção em notebook",
+    description: "Manutenção em compuador",
     value: parseFloat('100.00'),
   }).then(
     console.log("sucesso!")
   ).catch((err) => {
     console.log(">> Error while creating service: ", err);
-  });
-
-  const itemservice1 = await db.itemServices.create({
-    value: parseFloat('100.00'),
-    serviceId: s1.id,
-    orderId: order1.id
-  }).then(
-    console.log("sucesso!")
-  ).catch((err) => {
-    console.log(">> Error while creating itemService: ", err);
   });
 
   const prod1 = await db.products.create({
@@ -50,6 +31,33 @@ const db = require("../models");
     console.log("sucesso!")
   ).catch((err) => {
     console.log(">> Error while creating product: ", err);
+  });
+
+  const device1 = await db.devices.create({
+    name: 'Computador'
+  }).then(
+    console.log("sucesso!")
+  ).catch(err => {
+    console.log(">> Error while creating devices: ", err)
+  })
+
+  const equipment1 = await db.equipments.create({
+    serialNumber: 'A31500-12',
+    deviceId: device1.id
+  }).then(
+    console.log("sucesso!")
+  ).catch(err => {
+    console.log(">> Error while creating equipments: ", err)
+  })
+
+  const order1 = await db.orders.create({
+    value: parseFloat('400.00'),
+    clientId: romeu.id,
+    equipmentId: equipment1.id
+  }).then(
+    console.log("sucesso!")
+  ).catch((err) => {
+    console.log(">> Error while creating order: ", err);
   });
 
   const itemProduct1 = await db.itemProducts.create({
@@ -63,13 +71,16 @@ const db = require("../models");
     console.log(">> Error while creating itemProduct: ", err);
   });
 
-  const device1 = await db.devices.create({
-    name: 'Computador'
+  const itemService1 = await db.itemServices.create({
+    value: parseFloat('80.00'),
+    serviceId: s1.id,
+    orderId: order1.id
   }).then(
     console.log("sucesso!")
-  ).catch(err => {
-    console.log(">> Error while creating itemProduct: ", err)
-  })
+  ).catch((err) => {
+    console.log(">> Error while creating itemService: ", err);
+  });
+
 
 })();
 
