@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Order
 exports.create = (req, res) => {
 
-    //validate value service
+    //validate value client
     if (!req.body.clientId) {
         res.status(400).send({
             message: "Content can not be empty!"
@@ -49,6 +49,16 @@ exports.findAll = (req, res) => {
                     model: db.clients,
                     required: true,
                     attributes: ['id', 'name']
+                },
+                {
+                    model: db.equipments,
+                    attributes: ['serialNumber'],
+                    include : [
+                        {
+                            model:db.devices,
+                            attributes: [ 'name'],
+                        }
+                    ]
                 },
                 {
                     model: db.itemServices,
