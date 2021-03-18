@@ -112,6 +112,16 @@ exports.findOne = (req, res) => {
                 attributes: ['id', 'name']
             },
             {
+                model: db.equipments,
+                attributes: ['serialNumber'],
+                include : [
+                    {
+                        model:db.devices,
+                        attributes: [ 'name'],
+                    }
+                ]
+            },
+            {
                 model: db.itemServices,
                 attributes: ['id', 'value'],
                 include: [
