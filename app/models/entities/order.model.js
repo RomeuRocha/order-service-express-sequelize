@@ -3,6 +3,9 @@ module.exports = (sequelize, DataTypes) => {
 
       value:{
           type: DataTypes.FLOAT
+      },
+      description: {
+        type: DataTypes.STRING
       }
       
     });

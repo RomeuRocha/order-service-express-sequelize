@@ -31,6 +31,7 @@ db.itemProducts = require('./entities/itemProduct.model')(sequelize, DataTypes);
 db.devices = require('./entities/device.model')(sequelize, DataTypes);
 db.equipments = require('./entities/equipment.model')(sequelize, DataTypes);
 
+
 //relations client for order (1:n)
 db.clients.hasMany(db.orders)
 db.orders.belongsTo(db.clients)

@@ -52,6 +52,7 @@ const db = require("../models");
 
   const order1 = await db.orders.create({
     value: parseFloat('400.00'),
+    description:'Computador apresentando lentidão',
     clientId: romeu.id,
     equipmentId: equipment1.id
   }).then(
