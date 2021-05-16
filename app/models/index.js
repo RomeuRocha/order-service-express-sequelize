@@ -16,7 +16,7 @@ db.sequelize = sequelize;
 db.DataTypes = DataTypes
 
 //relations client for order (1:n)
-db.clients.hasMany(db.orders)
+db.clients.hasMany(db.orders) 
 db.orders.belongsTo(db.clients)
 
 //relation order for service (n : n)

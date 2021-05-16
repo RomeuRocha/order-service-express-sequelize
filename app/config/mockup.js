@@ -8,7 +8,8 @@ const db = require("../models");
 
   const romeu = await db.clients.create({
     name: "Romeu Rocha",
-    birthDate: '1995-04-14 19:52:50'
+    birthDate: '1995-04-14 19:52:50',
+    cpf :'913.246.580-70'
   }).then(
     console.log("sucesso!")
   ).catch((err) => {

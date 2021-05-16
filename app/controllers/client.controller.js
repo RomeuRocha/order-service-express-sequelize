@@ -16,7 +16,8 @@ exports.create = (req, res) => {
     // Create a Client
     const client = {
         name: req.body.name,
-        birthDate: req.body.birthDate
+        birthDate: req.body.birthDate,
+        cpf: req.body.cpf
     };
 
     // Save client in the database
